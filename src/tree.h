@@ -31,16 +31,16 @@ private:
 			}
 			children.clear();
 		}
-		node* get_child(const uint a)
+		node* getChild(const uint a)
 		{
 			uint n = children.size();
-			if (a > n)
+			if (a >= n)
 				return NULL;
 			return children[a];
 		}
 
 		node(T v, node* _parent = NULL, uint _index = 0) :
-				parent(_parent), value(v), index(_index)
+				index(_index), value(v), parent(_parent)
 		{
 
 		}
@@ -50,6 +50,7 @@ private:
 		}
 	};
 public:
+	uint level;
 	node* current;
 	node* root;
 	void add(T value)
@@ -63,7 +64,84 @@ public:
 		{
 			int index = current->children.size();
 			node* temp = new node(value, current, index);
-			current->children.push_back()
+			current->children.push_back(temp);
+		}
+	}
+	bool to_parent()
+	{
+		if (current != NULL)
+		{
+			current = current->parent;
+			level--;
+			return true;
+		}
+		return false;
+	}
+	bool to_child(const uint i)
+	{
+		node* temp = current->getChild(i);
+		if (temp == NULL)
+		{
+			return false;
+		}
+		else
+		{
+			current = temp;
+			level++;
+			return true;
+		}
+	}
+	bool right_neighbor()
+	{
+		if (current->parent == NULL)
+			return false;
+		uint index = current->index;
+		node* temp = current->parent->getChild(index + 1);
+		if (temp != NULL)
+		{
+			current = temp;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	bool left_neighbor()
+	{
+		if (current->parent == NULL)
+			return false;
+		uint index = current->index;
+		node* temp = current->parent->getChild(index - 1);
+		if (temp != NULL)
+		{
+			current = temp;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	void to_root()
+	{
+		current = root;
+		level = 0;
+	}
+	uint childrenCount()
+	{
+		return current->children.size();
+	}
+	void print()
+	{
+		for (uint i = 0; i < level; i++)
+			std::cout << "-";
+		std::cout << current->value << std::endl; //unknown eclipse error, comment pleas
+		for (uint i = 0; i < current->children.size(); i++)
+		{
+			to_child(i);
+			print();
+			to_parent();
 		}
 	}
 	tree();
@@ -73,6 +151,7 @@ public:
 template<class T> tree<T>::tree()
 {
 	root = NULL;
+	level = 0;
 	current = root;
 	// TODO Auto-generated constructor stub
 
