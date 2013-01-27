@@ -39,6 +39,16 @@ private:
 			return children[a];
 		}
 
+		node* copy(node* _parent = NULL, uint _index = 0)
+		{
+			node *this_node = new node(value, _parent, _index);
+			for(uint i = 0;i<children.size();i++)
+			{
+				this_node->children.push_back(children[i]->copy(this_node,i));
+			}
+			return this_node;
+		}
+
 		node(T v, node* _parent = NULL, uint _index = 0) :
 				index(_index), value(v), parent(_parent)
 		{
@@ -128,10 +138,24 @@ public:
 		current = root;
 		level = 0;
 	}
+
 	uint childrenCount()
 	{
 		return current->children.size();
 	}
+
+	T getValue()
+	{
+		if (current != NULL)
+		{
+			return current->value;
+		}
+		else
+		{
+			throw NULL;
+		}
+	}
+
 	void print()
 	{
 		for (uint i = 0; i < level; i++)
@@ -145,8 +169,41 @@ public:
 		}
 	}
 	tree();
+	tree<T> &operator=(const tree& arg);
+	tree(tree &copy);
 	~tree();
 };
+
+
+template<class T> tree<T>& tree<T>::operator=(const tree& arg)
+{
+	delete this->root;
+	if(arg.root == NULL)
+	{
+		root = NULL;
+		current =NULL;
+		level = 0;
+	}else{
+		root = arg.root->copy();
+		current = root;
+		level = 0;
+	}
+	return *this;
+}
+
+template<class T> tree<T>::tree(tree &copy)
+{
+	if (copy.root == NULL)
+	{
+		root = NULL;
+		current = NULL;
+		level = 0;
+	}else{
+		root = copy.root->copy();
+		current = root;
+		level = 0;
+	}
+}
 
 template<class T> tree<T>::tree()
 {
