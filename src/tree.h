@@ -42,9 +42,9 @@ private:
 		node* copy(node* _parent = NULL, uint _index = 0)
 		{
 			node *this_node = new node(value, _parent, _index);
-			for(uint i = 0;i<children.size();i++)
+			for (uint i = 0; i < children.size(); i++)
 			{
-				this_node->children.push_back(children[i]->copy(this_node,i));
+				this_node->children.push_back(children[i]->copy(this_node, i));
 			}
 			return this_node;
 		}
@@ -174,16 +174,17 @@ public:
 	~tree();
 };
 
-
 template<class T> tree<T>& tree<T>::operator=(const tree& arg)
 {
 	delete this->root;
-	if(arg.root == NULL)
+	if (arg.root == NULL)
 	{
 		root = NULL;
-		current =NULL;
+		current = NULL;
 		level = 0;
-	}else{
+	}
+	else
+	{
 		root = arg.root->copy();
 		current = root;
 		level = 0;
@@ -193,12 +194,15 @@ template<class T> tree<T>& tree<T>::operator=(const tree& arg)
 
 template<class T> tree<T>::tree(tree &copy)
 {
+
 	if (copy.root == NULL)
 	{
 		root = NULL;
 		current = NULL;
 		level = 0;
-	}else{
+	}
+	else
+	{
 		root = copy.root->copy();
 		current = root;
 		level = 0;
@@ -210,7 +214,6 @@ template<class T> tree<T>::tree()
 	root = NULL;
 	level = 0;
 	current = root;
-	// TODO Auto-generated constructor stub
 
 }
 
@@ -220,7 +223,6 @@ template<class T> tree<T>::~tree()
 	{
 		delete root;
 	}
-	// TODO Auto-generated destructor stub
 }
 
 #endif /* TREE_H_ */

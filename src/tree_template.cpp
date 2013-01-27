@@ -12,6 +12,7 @@
 
 using namespace std;
 
+
 int main()
 {
 	tree<int> t;
@@ -28,13 +29,6 @@ int main()
 	t.right_neighbor();
 	t.add(8);
 	t.to_root();
-	t.print();
-	{
-		tree<int> t2;
-		t2 = t;
-		t2.print();
-	}
-	t.print();
 	cout << "1" << endl; // prints
 	return 0;
 }
