@@ -16,6 +16,7 @@ template<class T>
 class tree
 {
 private:
+
 	class node
 	{
 	public:
@@ -156,13 +157,26 @@ public:
 		}
 	}
 
+	template<class TCmp>
+	int find_child(T v, TCmp cmp)
+	{
+		if (current == NULL)
+			return -1;
+		for (uint i = 0; i < current->children.size(); i++)
+		{
+			if (cmp(current->children[i]->value, v))
+				return i;
+		}
+		return -1;
+	}
+
 	int find_child(T v)
 	{
-		if(current == NULL)
+		if (current == NULL)
 			return -1;
-		for(uint i=0;i<current->children.size();i++)
+		for (uint i = 0; i < current->children.size(); i++)
 		{
-			if(current->children[i]->value == v)
+			if (current->children[i]->value == v)
 				return i;
 		}
 		return -1;
