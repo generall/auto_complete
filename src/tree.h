@@ -156,6 +156,18 @@ public:
 		}
 	}
 
+	int find_child(T v)
+	{
+		if(current == NULL)
+			return -1;
+		for(uint i=0;i<current->children.size();i++)
+		{
+			if(current->children[i]->value == v)
+				return i;
+		}
+		return -1;
+	}
+
 	void print()
 	{
 		for (uint i = 0; i < level; i++)
