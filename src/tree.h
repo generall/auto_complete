@@ -155,7 +155,7 @@ public:
 		}
 		else
 		{
-			throw std::logic_error();
+			throw std::logic_error("No element");
 		}
 	}
 
@@ -190,7 +190,7 @@ public:
 		{
 			current->value=v;
 		}else{
-			throw std::logic_error();
+			throw std::logic_error("No element");
 		}
 	}
 
