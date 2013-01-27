@@ -10,6 +10,8 @@
 
 #include <iostream>
 #include <vector>
+#include <exception>
+#include <stdexcept>
 typedef unsigned int uint;
 
 template<class T>
@@ -153,7 +155,7 @@ public:
 		}
 		else
 		{
-			throw NULL;
+			throw std::logic_error();
 		}
 	}
 
@@ -188,7 +190,7 @@ public:
 		{
 			current->value=v;
 		}else{
-			throw NULL;
+			throw std::logic_error();
 		}
 	}
 
