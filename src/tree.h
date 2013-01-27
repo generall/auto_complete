@@ -182,6 +182,16 @@ public:
 		return -1;
 	}
 
+	void setValue(T v)
+	{
+		if(current!=NULL)
+		{
+			current->value=v;
+		}else{
+			throw NULL;
+		}
+	}
+
 	void print()
 	{
 		for (uint i = 0; i < level; i++)
